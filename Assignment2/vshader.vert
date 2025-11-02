@@ -1,14 +1,13 @@
-#version 140
-#extension GL_ARB_compatibility: enable
+#version 150 compatibility
 
-out vec4 color;
+out vec3 vViewPosition;
+out vec3 vViewNormal;
 
-uniform mat4 Mvp;
-
-void main() 
+void main()
 {
-   gl_Position = Mvp * gl_Vertex; 
-   color = gl_Color;   
+    vec4 viewPosition = gl_ModelViewMatrix * gl_Vertex;
+    vViewPosition = viewPosition.xyz;
+    vViewNormal = normalize(gl_NormalMatrix * gl_Normal);
+
+    gl_Position = gl_ProjectionMatrix * viewPosition;
 }
-
-
