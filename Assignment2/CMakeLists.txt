@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.16.3)
 PROJECT(Assign_2)
 
 # Common include / link directories
-INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/include/ ${CMAKE_SOURCE_DIR}/freeglut/include/ ${CMAKE_SOURCE_DIR}/glew/inc/ )
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/ ${CMAKE_SOURCE_DIR}/freeglut/include/ ${CMAKE_SOURCE_DIR}/glew/inc/ )
 LINK_DIRECTORIES( ${CMAKE_SOURCE_DIR}/freeglut/lib/ ${CMAKE_SOURCE_DIR}/glew/lib/)
 
 # collect source files

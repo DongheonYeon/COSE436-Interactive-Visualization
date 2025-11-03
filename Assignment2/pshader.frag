@@ -1,4 +1,5 @@
-#version 150 compatibility
+#version 140
+#extension GL_ARB_compatibility: enable
 
 in vec3 gViewPosition;
 in vec3 gViewNormal;
@@ -38,6 +39,6 @@ void main()
         accumulatedSpecular += SpecularProducts[i] * spec;
     }
 
-    vec3 finalColor = accumulatedAmbient + accumulatedDiffuse + accumulatedSpecular;
+    vec3 finalColor = accumulatedAmbient + accumulatedDiffuse + accumulatedSpecular; // no attenuation factor
     fColor = vec4(finalColor, 1.0);
 }

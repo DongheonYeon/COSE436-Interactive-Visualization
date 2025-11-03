@@ -1,4 +1,4 @@
-#version 150 compatibility
+#version 150
 
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 3) out;
@@ -20,8 +20,7 @@ void main()
         faceNormal = normalize(cross(edge1, edge2));
     }
 
-    for (int i = 0; i < gl_in.length(); ++i)
-    {
+    for (int i = 0; i < gl_in.length(); ++i) {
         gl_Position = gl_in[i].gl_Position;
         gViewPosition = vViewPosition[i];
         gViewNormal = (UseFlatShading != 0) ? faceNormal : normalize(vViewNormal[i]);
