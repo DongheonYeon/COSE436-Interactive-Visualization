@@ -1,14 +1,13 @@
 #version 140
-#extension GL_ARB_compatibility: enable 
-
-out vec4 color;
+#extension GL_ARB_compatibility: enable
 
 uniform mat4 Mv;
+out vec2 vUV;   // vertex UV
 
-void main() 
+void main()
 {
-   gl_Position = Mv * gl_Vertex; 
-   color = gl_Color;   
+    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+    vUV = gl_MultiTexCoord0.st;
 }
 
 
