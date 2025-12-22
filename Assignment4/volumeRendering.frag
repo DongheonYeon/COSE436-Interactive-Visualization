@@ -14,7 +14,7 @@ void main()
 {
 	vec4 composedColor=vec4(0,0,0,0);
 
-	// Ray-cube intersection (2.1)
+	// Ray-cube intersection
 	vec3 rayDir = normalize(pixelPosition - eyePosition);
 	vec3 invDir = 1.0 / rayDir;
 
@@ -34,7 +34,7 @@ void main()
 	vec3 entryPoint = eyePosition + rayDir * tmin;
 	vec3 exitPoint = eyePosition + rayDir * tmax;
 
-	// Ray marching + iso-surface detection (2.2)
+	// Ray marching + iso-surface detection
 	const int maxSteps = 1024;
 	float tStart = max(tmin, 0.0);
 	float tEnd = tmax;
@@ -93,7 +93,7 @@ void main()
 	vec3 hitTex = (hitPos - objectMin) / boxSize;
 	hitTex = clamp(hitTex, 0.0, 1.0);
 
-	// Gradient-based normal in texture space
+	// Gradient based normal in texture space
 	vec3 delta = vec3(1.0 / 256.0);
 	float gx = texture(tex, clamp(hitTex + vec3(delta.x, 0.0, 0.0), 0.0, 1.0)).r -
 	           texture(tex, clamp(hitTex - vec3(delta.x, 0.0, 0.0), 0.0, 1.0)).r;
@@ -105,12 +105,16 @@ void main()
 
 	// Phong shading
 	vec3 L = normalize(vec3(1.0, 1.0, 1.0));
+	vec3 L2 = normalize(vec3(-1.0, -0.5, -1.0));
 	vec3 V = normalize(eyePosition - hitPos);
 	vec3 R = reflect(-L, N);
+	vec3 R2 = reflect(-L2, N);
 	float diff = max(dot(N, L), 0.0);
+	float diff2 = max(dot(N, L2), 0.0);
 	float spec = pow(max(dot(R, V), 0.0), 32.0);
+	float spec2 = pow(max(dot(R2, V), 0.0), 32.0);
 	vec3 ambient = vec3(0.1);
-	vec3 color = ambient + diff * vec3(0.9) + spec * vec3(0.6);
+	vec3 color = ambient + diff * vec3(0.5) + diff2 * vec3(0.5) + spec * vec3(0.6) + spec2 * vec3(0.3);
 
 	composedColor = vec4(color, 1.0);
 
